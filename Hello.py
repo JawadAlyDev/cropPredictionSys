@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 st.title("Home")
-st.sidebar.success("Select a page above")
+st.sidebar.success("Select a page above to navigate")
 
 import pandas as pd
 import numpy as np
