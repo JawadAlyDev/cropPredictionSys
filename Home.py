@@ -1,5 +1,12 @@
 import streamlit as st
 
+
+st.set_page_config(
+    page_title="Home - Crop Predict",
+    page_icon="🌾"
+)
+
+
 import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeRegressor
@@ -23,10 +30,8 @@ from sklearn.feature_selection import SelectKBest, f_classif
 from scipy import stats
 import time
 
-st.set_page_config(
-    page_title="Home - Crop Predict",
-    page_icon="🌾"
-)
+from pages.UserCSVUpload import handle_csv_prediction
+from pages.UserInput import handle_manual_input
 
 st.title("Home")
 st.sidebar.success("Select a page above to navigate")
@@ -45,46 +50,46 @@ option = st.selectbox("Select Action", ["Select", "Upload CSV for Prediction", "
 
 if option == 'Upload CSV for Prediction':
     st.write("You selected: Upload CSV for Prediction")
-    time.sleep(3)
-    
-    uploaded_file = st.file_uploader("Upload your CSV file", type=['csv'])
-    if uploaded_file is not None:
-        st.success("File uploaded successfully!")
-        df = pd.read_csv(uploaded_file)
-        st.write("### First 5 rows of the Uploaded CSV file:")
-        st.dataframe(df.head())
+    # time.sleep(3)
+    handle_csv_prediction()
+    # uploaded_file = st.file_uploader("Upload your CSV file", type=['csv'])
+    # if uploaded_file is not None:
+    #     st.success("File uploaded successfully!")
+    #     df = pd.read_csv(uploaded_file)
+    #     st.write("### First 5 rows of the Uploaded CSV file:")
+    #     st.dataframe(df.head())
     
         
 elif option == 'Provide Manual Input for Prediction':
     st.write("You selected: Provide Manual Input for Prediction")
-    time.sleep(3)
+    # time.sleep(3)
+    handle_manual_input()
+    # if "nitrogenQty" not in st.session_state and "phosphorousQty" not in st.session_state and "potassiumQty" not in st.session_state and "temperatureQty" not in st.session_state and "humidityQty" not in st.session_state and "pHQty" not in st.session_state and "rainfallQty" not in st.session_state:
+    #     st.session_state["nitrogenQty"] = ""
+    #     st.session_state["phosphorousQty"] = ""
+    #     st.session_state["potassiumQty"] = ""
+    #     st.session_state["temperatureQty"] = ""
+    #     st.session_state["humidityQty"] = ""
+    #     st.session_state["pHQty"] = ""
+    #     st.session_state["rainfallQty"] = ""
 
-    if "nitrogenQty" not in st.session_state and "phosphorousQty" not in st.session_state and "potassiumQty" not in st.session_state and "temperatureQty" not in st.session_state and "humidityQty" not in st.session_state and "pHQty" not in st.session_state and "rainfallQty" not in st.session_state:
-        st.session_state["nitrogenQty"] = ""
-        st.session_state["phosphorousQty"] = ""
-        st.session_state["potassiumQty"] = ""
-        st.session_state["temperatureQty"] = ""
-        st.session_state["humidityQty"] = ""
-        st.session_state["pHQty"] = ""
-        st.session_state["rainfallQty"] = ""
+    # nitrogen = st.text_input('Enter Nitrogen Quantity for Crop:')
+    # phosphorous = st.text_input('Enter Phosphorous Quantity for Crop:')
+    # potassium = st.text_input('Enter Potassium Quantity for Crop:')
+    # temperature = st.text_input('Enter Temperature Quantity for Crop:')
+    # humidity = st.text_input('Enter Humidity Quantity for Crop:')
+    # pH = st.text_input('Enter pH Quantity for Crop:')
+    # rainfall = st.text_input('Enter Rainfall Quantity for Crop:')
 
-    nitrogen = st.text_input('Enter Nitrogen Quantity for Crop:')
-    phosphorous = st.text_input('Enter Phosphorous Quantity for Crop:')
-    potassium = st.text_input('Enter Potassium Quantity for Crop:')
-    temperature = st.text_input('Enter Temperature Quantity for Crop:')
-    humidity = st.text_input('Enter Humidity Quantity for Crop:')
-    pH = st.text_input('Enter pH Quantity for Crop:')
-    rainfall = st.text_input('Enter Rainfall Quantity for Crop:')
-
-    submitBtn = st.button("Submit")
-    if submitBtn:
-        st.session_state["nitrogenQty"] = float(nitrogen)
-        st.session_state["phosphorousQty"] = float(phosphorous)
-        st.session_state["potassiumQty"] = float(potassium)
-        st.session_state["temperatureQty"] = float(temperature)
-        st.session_state["humidityQty"] = float(humidity)
-        st.session_state["pHQty"] = float(pH)
-        st.session_state["rainfallQty"] = float(rainfall)
-        st.write("You have entered ",nitrogen,phosphorous,potassium,temperature,humidity,pH,rainfall)
+    # submitBtn = st.button("Submit")
+    # if submitBtn:
+    #     st.session_state["nitrogenQty"] = float(nitrogen)
+    #     st.session_state["phosphorousQty"] = float(phosphorous)
+    #     st.session_state["potassiumQty"] = float(potassium)
+    #     st.session_state["temperatureQty"] = float(temperature)
+    #     st.session_state["humidityQty"] = float(humidity)
+    #     st.session_state["pHQty"] = float(pH)
+    #     st.session_state["rainfallQty"] = float(rainfall)
+    #     st.write("You have entered ",nitrogen,phosphorous,potassium,temperature,humidity,pH,rainfall)
         
 
