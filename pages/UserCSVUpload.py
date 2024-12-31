@@ -83,7 +83,8 @@ def handle_csv_prediction():
         df['label'].value_counts().plot(kind='pie', autopct="%.1f%%")
         plt.title('Label Distribution')
         plt.ylabel('')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Histogram
         columns_to_plot = ['N', 'P', 'K', 'temperature', 'humidity', 'ph','rainfall']
@@ -93,7 +94,8 @@ def handle_csv_prediction():
             plt.title(f'Histogram of {column.capitalize()}')
             plt.xlabel(f'{column.capitalize()} Levels')
             plt.ylabel('Frequency')
-            plt.show()
+            # plt.show()
+            st.pyplot(plt)
 
         # # KDE
         plt.figure(figsize=(12,12))
@@ -104,7 +106,8 @@ def handle_csv_prediction():
             sns.kdeplot(df[col])
             i += 1
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Outliers Detection
         plt.figure(figsize=(12,12))
@@ -123,13 +126,15 @@ def handle_csv_prediction():
         plt.xlabel('Label')
         plt.ylabel('Average pH')
         plt.xticks(rotation=45)
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
         top5_max_rainfall_crops = df.groupby('label')['rainfall'].max().nlargest(5)
         plt.figure(figsize=(8, 8))
         plt.pie(top5_max_rainfall_crops, labels=top5_max_rainfall_crops.index, autopct='%1.1f%%', startangle=140)
         plt.title('Proportion of Top 5 Crops with Maximum Rainfall')
         plt.axis('equal')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
         plt.figure(figsize=(10, 6))
         plt.hist(df['N'], bins=10, alpha=0.5, color='b', label='Nitrogen (N)')
         plt.hist(df['P'], bins=10, alpha=0.5, color='g', label='Phosphorus (P)')
@@ -138,7 +143,8 @@ def handle_csv_prediction():
         plt.ylabel('Frequency', fontweight='bold')
         plt.title('Distribution of NPK Nutrient Concentrations', fontweight='bold')
         plt.legend()
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Line Graph
         min_max_temp = df.groupby('label').agg({'temperature': ['min', 'max']})
@@ -154,7 +160,8 @@ def handle_csv_prediction():
         plt.xticks(rotation=45)
         plt.grid(True)
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         plt.figure(figsize=(10, 6))
         sns.lineplot(data=min_max_temp, x='label', y='max_temp', marker='o', label='Max Temperature', color='orange')
@@ -165,7 +172,8 @@ def handle_csv_prediction():
         plt.xticks(rotation=45)
         plt.grid(True)
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
         d=df.drop(['label','Growth Characteristics','Use (Food, Feed, Fiber)','Type','Water Requirements','Harvest Method'],axis = 'columns')
         d
         zscores = stats.zscore(d)
@@ -252,7 +260,8 @@ def handle_csv_prediction():
         plt.ylabel('Accuracy', fontsize=15)
 
         plt.plot(models, accuracy_scores, color='skyblue', marker="d")
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
         accuracy_scores = [svm_accuracy, logistic_accuracy,rf_accuracy,dt_accuracy,knn_accuracy,nb_accuracy]
 
         models = ['SVM', 'Logistic Regression','Random Forest','Decision Tree','KNN','GussianNB']
@@ -298,7 +307,8 @@ def handle_csv_prediction():
         plt.ylabel('Cross-Validation Accuracy')
         plt.title('Cross-Validation Accuracies of Different Models')
         plt.ylim(0.7, 1)
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Confusion Matrix Of Each Model
         # # CONFUSION MATRIX FOR SVM
@@ -307,7 +317,8 @@ def handle_csv_prediction():
         plt.title('Confusion Matrix For SVM')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # CONFUSION MATRIX FOR LOGISTIC REGRESSION
         cm = confusion_matrix(y_test, y_pred_log)
@@ -315,7 +326,8 @@ def handle_csv_prediction():
         plt.title('Confusion Matrix For Logistic Regression')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # CONFUSION MATRIX FOR Decision Tree
         cm = confusion_matrix(y_test, y_pred_dt)
@@ -323,7 +335,8 @@ def handle_csv_prediction():
         plt.title('Confusion Matrix For Decision Tree')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Confusion Matrix For KNN
         cm = confusion_matrix(y_test, y_pred_knn)
@@ -331,7 +344,8 @@ def handle_csv_prediction():
         plt.title('Confusion Matrix For KNN')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Confusion Matrix For GussianNB
         cm = confusion_matrix(y_test, y_pred_nb)
@@ -339,7 +353,8 @@ def handle_csv_prediction():
         plt.title('Confusion Matrix For GussianNB')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Confusion Matrix For Random Forest
         cm = confusion_matrix(y_test, y_pred_rf)
@@ -347,7 +362,8 @@ def handle_csv_prediction():
         plt.title('Confusion Matrix For Random Forest')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Classification Report For Each Model
 
@@ -609,7 +625,8 @@ def handle_csv_prediction():
         plt.xlabel('Model')
         plt.ylabel('Mean Squared Error')
         plt.title('Mean Squared Error Comparison between SVM,Logistic Regression,Random Forest,Decison Tree,GussianNB')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Feature Importance For Each Model
         feature_names = ['N','P','K','temperature', 'humidity', 'ph','rainfall', 'label']
@@ -635,7 +652,8 @@ def handle_csv_prediction():
         plt.xlabel('Feature')
         plt.ylabel('Absolute Coefficient')
         plt.title('Feature Importance for SVM')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         feature_names = ['N','P','K','temperature', 'humidity', 'ph','rainfall', 'label']
         top_importances = RF_Model.feature_importances_
@@ -648,7 +666,8 @@ def handle_csv_prediction():
         plt.xlabel('Feature')
         plt.ylabel('Importance')
         plt.title('Feature Importance for Random Forest')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         feature_names = ['N','P','K','temperature', 'humidity', 'ph','rainfall', 'label']
         top_importances =DT_Model.feature_importances_
@@ -661,7 +680,8 @@ def handle_csv_prediction():
         plt.xlabel('Feature')
         plt.ylabel('Importance')
         plt.title('Feature Importance for Decison Tree')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         from sklearn.inspection import permutation_importance
 
@@ -677,7 +697,8 @@ def handle_csv_prediction():
         plt.yticks(range(len(top_feature_names)), top_feature_names)
         plt.xlabel('Mean Decrease in Accuracy')
         plt.title('Permutation Feature Importance for Top 4 Features in KNN')
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
 
         # # Distribution Graph Of Each Feature By Using GussianNB Model
         means = Gaussian_Model.theta_
@@ -695,7 +716,8 @@ def handle_csv_prediction():
             axes[i].set_ylabel(f'Mean value of {feature_name}')
             axes[i].set_title(f'Distribution of {feature_name} across classes')
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+        st.pyplot(plt)
         unique_labels = df['label'].unique()
         unique_labels
 
